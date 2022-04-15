@@ -1,3 +1,8 @@
 [submodule "client"]
 	path = docker/containers/client
 	url = git@github.com:PrEvIeS/portfolio_markup.git
+	branch = master
+[submodule "api"]
+	path = docker/containers/api
+	url = git@github.com:PrEvIeS/portfoli_api.git
+	branch = master
