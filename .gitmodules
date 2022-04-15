@@ -1,3 +1,3 @@
 [submodule "client"]
-	path = client
+	path = docker/containers/client
 	url = git@github.com:PrEvIeS/portfolio_markup.git

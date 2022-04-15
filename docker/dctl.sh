@@ -44,25 +44,25 @@ if [ $# -eq 0 ]
 fi
 
 function applyDump {
-    cat $1 | docker exec -i ${PROJECT_PREFIX}_mysql mysql -u $MYSQL_USER -p"$MYSQL_PASSWORD" $MYSQL_DATABASE;
+    cat $1 | docker exec -i ${PROJECT_NAME}_mysql mysql -u $MYSQL_USER -p"$MYSQL_PASSWORD" $MYSQL_DATABASE;
     return $?
 }
 
 function runInMySql {
     local command=$@
-    docker exec -i ${PROJECT_PREFIX}_mysql su mysql -c "$command"
+    docker exec -i ${PROJECT_NAME}_mysql su mysql -c "$command"
     return $?
 }
 
 function runInPhp {
     local command=$@
     echo $command;
-    docker exec -i ${PROJECT_PREFIX}_php su www-data -c "$command"
+    docker exec -i ${PROJECT_NAME}_php su www-data -c "$command"
     return $?
 }
 
 function enterInPhp {
-    docker exec -it ${PROJECT_PREFIX}_php su www-data
+    docker exec -it ${PROJECT_NAME}_php su www-data
     return $?
 }
 
@@ -99,7 +99,7 @@ if [ "$1" == "db" ];
   then
     if [ "$2" == "" ];
         then
-        docker exec -it ${PROJECT_PREFIX}_mysql mysql -u $MYSQL_USER -p"$MYSQL_PASSWORD" $MYSQL_DATABASE;
+        docker exec -it ${PROJECT_NAME}_mysql mysql -u $MYSQL_USER -p"$MYSQL_PASSWORD" $MYSQL_DATABASE;
     fi
 
     if [ "$2" == "export" ];
@@ -126,23 +126,23 @@ fi
 
 if [ "$1" == "build" ];
   then
-    docker-compose -p ${PROJECT_PREFIX} build 
+    docker-compose -p ${PROJECT_NAME} build 
 fi
 
 if [ "$1" == "up" ];
   then
-  docker-compose -p ${PROJECT_PREFIX} build 
+  docker-compose -p ${PROJECT_NAME} build 
     if [ "$2" == "silent" ];
         then
-            docker-compose -p ${PROJECT_PREFIX} up -d;
+            docker-compose -p ${PROJECT_NAME} up -d;
         else
-            docker-compose -p ${PROJECT_PREFIX} up
+            docker-compose -p ${PROJECT_NAME} up
     fi
 fi
 
 if [ "$1" == "down" ];
   then
-    docker-compose -p ${PROJECT_PREFIX} down
+    docker-compose -p ${PROJECT_NAME} down
 fi
 
 if [ "$1" == "test" ];
@@ -154,7 +154,7 @@ if [ "$1" == "run" ];
   then
     if [ "$2" == "" ];
         then
-        docker exec -it ${PROJECT_PREFIX}_php su www-data -c "cd /var/www/html/; bash -l";
+        docker exec -it ${PROJECT_NAME}_php su www-data -c "cd /var/www/html/; bash -l";
     else
     runInPhp "${@:2}"
     fi

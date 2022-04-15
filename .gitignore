@@ -1,3 +1,9 @@
+.bash_history
+/.composer
+/shared
+.idea
+/vendor
+.env
 docker/data/*/*
 docker/logs/*/*
 server/node_modules
